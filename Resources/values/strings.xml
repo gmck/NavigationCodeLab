@@ -1,0 +1,39 @@
+<resources>
+  <string name="app_name">Navigation codelab - Xamarin</string>
+
+  <!-- Menu strings -->
+  <string name="shopping_cart">Shopping Cart</string>
+  <string name="settings">Settings</string>
+  <string name="home">Home</string>
+  <string name="deeplink">Deep Link</string>
+
+  <string name="action_privacy_policy">Privacy Policy</string>
+
+  <!-- Screen strings -->
+  <string name="step_one">Step One</string>
+  <string name="step_two">Step Two</string>
+  <string name="deep_link_instructions">Type your deep link args</string>
+  <string name="settings_fragment_text">Settings Fragment</string>
+  <string name="shopping_fragment_text">Shopping Fragment</string>
+  <string name="navigate_destination_button">Navigate to destination</string>
+  <string name="navigate_action_button">Navigate with action</string>
+  <string name="next_step_button">Navigate next step</string>
+  <string name="finish_button">Finish Flow</string>
+  <string name="send_deep_link_notification_button">Send deep link notification</string>
+
+
+  <!--PrivacyDialogFragment-->
+  <string name ="privacy_policy_title">Privacy Policy</string>
+  <string name ="privacy_policy_explanation">
+    The following statement describes the privacy policy of GLM Software in relation to our Android application OBD Now Pro as required by Google for apps made available on Google Play.
+    \n\nOBD Now Pro when either obtaining an evaluation license or purchasing a subscription, records details of your email address and display name as well as details of your device, including manufacturer, model and brand and the current version of the Android operating system.
+    \n\nAll data is transferred and stored using secure communications. No data communicated to our servers will ever be transferred to third parties.
+    \n\nInformation relating to error reporting of the application is collected always and cannot be disabled. This information is totally anonymous and is used to improve the quality of our application.
+    \n\nAnalytical information concerning the usage patterns of how the application is used, is also collected. This information is also anonymous. If desired, collection of this data can be turned off in the Settings menu -  Collect Usage Analytics.
+    \n\nWhen requesting support, we will normally request OBD Diagnostic log files. These log files include information about your scan tool, such as make and model and version information and potentially detailed output from the ECU(s) of your vehicle.
+    \n\nWe ask for them as a means of providing support to you for problems associated with connecting to the vehicle. Details of vehicle make and model are not included in the log files as those properties are not part of the OBDII specification. We will however request that you supply them to allow us to assist you.
+    \n\nPlease see the section in our Guide re Requesting Support.
+    \n\nIf our policy changes, this statement will be changed to reflect those changes.
+  </string>
+  <!--PrivacyDialogFragment-->
+</resources>

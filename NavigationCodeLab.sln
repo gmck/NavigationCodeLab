@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30323.103
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationCodeLab", "NavigationCodeLab.csproj", "{EFCD4D60-1E17-4512-B18A-A270AF281F6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFCD4D60-1E17-4512-B18A-A270AF281F6D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {399C2A7F-A1D6-4DF9-A58A-63B5306DF11A}
+	EndGlobalSection
+EndGlobal
