@@ -16,6 +16,7 @@
             xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@+id/home_dest">
 
+    <!--top level fragment-->
     <fragment
         android:id="@+id/home_dest"
         android:name="com.companyname.NavigationCodeLab.Fragments.HomeFragment"
@@ -73,6 +74,7 @@
         tools:layout="@layout/settings_fragment" />
     <!-- TODO END STEP 4 -->
 
+    <!--top level fragment-->
     <fragment
         android:id="@+id/deeplink_dest"
         android:name="com.companyname.NavigationCodeLab.Fragments.DeepLinkFragment"
@@ -94,5 +96,11 @@
       android:name="com.companyname.NavigationCodeLab.Fragments.ShoppingCartFragment"
       android:label="@string/shopping_cart"
       tools:layout="@layout/shopping_fragment" />
+
+  <fragment
+    android:id="@+id/action_google_sign_in"
+    android:name="com.companyname.NavigationCodeLab.Fragments.GoogleSignInFragment"
+    android:label="@string/action_google_sign_in"
+    tools:layout="@layout/google_sign_in_fragment" />
 
 </navigation>

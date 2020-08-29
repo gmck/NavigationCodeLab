@@ -13,17 +13,20 @@
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- TODO Step 9.1 - Add an item for the settings fragment -->
+  
+  <!-- TODO Step 9.1 - Add an item for the settings fragment -->
 
-    <!--By default, the back stack will be popped back to the navigation graph's start destination. Menu items that have android:menuCategory="secondary" will not pop the back stack.-->
-    <item
-        android:id="@+id/settings_dest"
-        android:icon="@drawable/ic_settings"
-        android:menuCategory="secondary"
-        android:title="@string/settings" />
-    <!-- TODO END STEP 9.1 -->
+  <!--By default, the back stack will be popped back to the navigation graph's start destination. Menu items that have android:menuCategory="secondary" will not pop the back stack.-->
+  <item
+      android:id="@+id/settings_dest"
+      android:icon="@drawable/ic_settings"
+      android:menuCategory="secondary"
+      android:title="@string/settings" />
+  <!-- TODO END STEP 9.1 -->
 
-    <item android:id="@+id/action_privacy_policy"
-        android:title="@string/action_privacy_policy"
-        app:showAsAction="never" />
+  <!-- Extra step for alternative version of OnOptionsItemSelected - not contained in original google code lab-->
+  <item android:id="@+id/action_google_sign_in"
+          android:title="@string/action_google_sign_in"
+          app:showAsAction="never" />
+
 </menu>

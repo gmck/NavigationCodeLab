@@ -42,7 +42,7 @@ namespace com.companyname.NavigationCodeLab.Fragments
             //var button = view.FindViewById<Button>(Resource.Id.navigate_destination_button);
             //button.SetOnClickListener(Navigation.CreateNavigateOnClickListener(Resource.Id.flow_step_one_dest, null));
 
-            // and another without directly declaring the Button - Xamarin.Android and C# provide very flexible ssyntax to do the same thing. Whatever floats your boat as long as it works!!
+            // and another without directly declaring the Button - Xamarin.Android and C# provide very flexible syntax to do the same thing. Whatever floats your boat as long as it works!!
             //view.FindViewById<Button>(Resource.Id.navigate_destination_button).SetOnClickListener(Navigation.CreateNavigateOnClickListener(Resource.Id.flow_step_one_dest, null));
             // TODO END OF STEP 5
 
@@ -54,7 +54,7 @@ namespace com.companyname.NavigationCodeLab.Fragments
                 .SetPopExitAnim(Resource.Animation.slide_out_right)
                 .Build();
             
-            // Now from what we saw in Step 5 - make sure all of step 5 is now commented as per the Code LAb instructions
+            // Now from what we saw in Step 5 - make sure all of step 5 is now commented as per the Code Lab instructions
            
             // The navigate_destination_button - note not passing a bundle, but we are passing the navOptions
             view.FindViewById<Button>(Resource.Id.navigate_destination_button).Click += (sender, e) =>
@@ -65,7 +65,7 @@ namespace com.companyname.NavigationCodeLab.Fragments
 
 
             // TODO Set 7.2 - Update the OnClickListener to navigate using an action
-            // Don't forget the Step 7.1 before you do this step - Step 7.2
+            // Don't forget the Step 7.1 (in the nav_graph) before you do this step - Step 7.2
             // Note: It would be nice if we also had a Navigation.CreateNavigateOnClickListener(int resId, Bundle args, NavOptions navOptions) for SetOnClickListener here.
             // we have one taking a resid, bundle, but not resid, bundle and navOptions. Could eliminate the NavOptions in the graph.
 

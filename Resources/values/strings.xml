@@ -8,6 +8,7 @@
   <string name="deeplink">Deep Link</string>
 
   <string name="action_privacy_policy">Privacy Policy</string>
+  <string name="action_google_sign_in">Google Sign In</string>
 
   <!-- Screen strings -->
   <string name="step_one">Step One</string>
@@ -23,7 +24,7 @@
 
 
   <!--PrivacyDialogFragment-->
-  <string name ="privacy_policy_title">Privacy Policy</string>
+  <!--<string name ="privacy_policy_title">Privacy Policy</string>
   <string name ="privacy_policy_explanation">
     The following statement describes the privacy policy of GLM Software in relation to our Android application OBD Now Pro as required by Google for apps made available on Google Play.
     \n\nOBD Now Pro when either obtaining an evaluation license or purchasing a subscription, records details of your email address and display name as well as details of your device, including manufacturer, model and brand and the current version of the Android operating system.
@@ -34,6 +35,24 @@
     \n\nWe ask for them as a means of providing support to you for problems associated with connecting to the vehicle. Details of vehicle make and model are not included in the log files as those properties are not part of the OBDII specification. We will however request that you supply them to allow us to assist you.
     \n\nPlease see the section in our Guide re Requesting Support.
     \n\nIf our policy changes, this statement will be changed to reflect those changes.
-  </string>
+  </string>-->
   <!--PrivacyDialogFragment-->
+
+  <!--GoogleSignInFragment-->
+  <string name="google_sign_in_fragment_text">Google Sign In</string>
+<!--GoogleSignInFragment-->
+  <string name ="internetConnectionRequired">
+    No Internet Connection - Connection Required
+  </string>
+  <string name="internetRequiredGoogleSignIn">
+    To Sign In to Google requires an internet connection
+  </string>
+  <string name ="internetRequiredExplanationEvaluation">
+    Before you can use the evaluation version of PRODUCT NAME, you will need to obtain an evaluation license from our server.
+    \n\nTo contact our server requires an internet connection.
+    \n\nPlease ensure that you have an internet connection before attempting to obtain an evaluation license.
+    \n\nYou may prefer to have Internet Network Connectivity always displayed on the Connection screen, by changing the setting to on via the the Settings menu.
+  </string>
+  <!--InternetRequiredDialogFragmnet-->
+
 </resources>

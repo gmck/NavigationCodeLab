@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -11,7 +10,6 @@ using AndroidX.Navigation.UI;
 using com.companyname.NavigationCodeLab.Dialogs;
 using Google.Android.Material.BottomNavigation;
 using Google.Android.Material.Navigation;
-using Google.Android.Material.Snackbar;
 using System;
 
 namespace com.companyname.NavigationCodeLab
@@ -21,11 +19,12 @@ namespace com.companyname.NavigationCodeLab
     */
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
 
-    // Step 11 from the code lab. It is not possible to add the following line
-    // <nav-graph android:value="@navigation/mobile_navigation" /> 
-    // to the Xamarin.Android AndroidManifest.xml
-    // Below we can achieve the same thing. See the AndroidManifest that is generated in NavigationCodeLab\obj\Debug to see how the IntentFilter below is transformed
-    
+    // Step 11 from the code lab. 
+    // It is not possible to add the following line <nav-graph android:value="@navigation/mobile_navigation" /> 
+    // to the Xamarin.Android AndroidManifest.xml. See https://docs.microsoft.com/en-us/xamarin/android/platform/android-manifest
+    // Below we can achieve the same thing. See the AndroidManifest that is generated in NavigationCodeLab\obj\Debug to see how the IntentFilter below is transformed.
+    // Then compare to the AndroidManifest in the project properties. If you are familiar with Xamarin.Auth you will see a very similar technique in the CustomUrlSchemeInterceptorActivity
+
     //[IntentFilter
     //    (
     //        actions: new[] { Intent.ActionView },
@@ -39,20 +38,13 @@ namespace com.companyname.NavigationCodeLab
     public class MainActivity : AppCompatActivity, NavController.IOnDestinationChangedListener
     {
         private AppBarConfiguration appBarConfiguration;
-        private ConnectivityMonitor connectivityMonitor;
-        private readonly bool connectivityInfo = true;
-
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.navigation_activity);
-
-            // This must come early - failed with a null reference exception on connectivityMonitor in ConnectionAvailable() when at the end of OnCreate.
-            // RegisterDefaultNetworkCallback available API 24+ Android 7+
-            connectivityMonitor = new ConnectivityMonitor(ApplicationContext);
-            connectivityMonitor.RegisterDefaultNetworkCallback();
 
             AndroidX.AppCompat.Widget.Toolbar toolbar = FindViewById<AndroidX.AppCompat.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
@@ -79,17 +71,13 @@ namespace com.companyname.NavigationCodeLab
             navController.AddOnDestinationChangedListener(this);
         }
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            InternetConnectionAvailable();
-        }
+        
         private void SetupBottomNavMenu(NavController navController)
         {
             // TODO STEP 9.3 - Use NavigationUI to set up Bottom Nav
             // val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
             // bottomNav?.setupWithNavController(navController)
-            
+
             var bottomNav = FindViewById<BottomNavigationView>(Resource.Id.bottom_nav_view);
             if (bottomNav != null)
                 NavigationUI.SetupWithNavController(bottomNav, navController);
@@ -136,52 +124,57 @@ namespace com.companyname.NavigationCodeLab
         }
 
 
-        // Orignal codelab code - see an alternative below
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    //return base.OnOptionsItemSelected(item);
-
-        //    // TODO STEP 9.2 - Have Navigation UI Handle the item selection - make sure to delete or comment
-        //    // the original return statement above
-
-        //    // Have the NavigationUI look for an action or destination matching the menu
-        //    // item id and navigate there if found.
-        //    // Otherwise, bubble up to the parent.
-        //    // return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment)) || super.onOptionsItemSelected(item)
-
-        //    // This Kotlin is probably the most complex code to translate from Kotlin to C#. The Kotlin code really doesn't give you much of a clue!!. At least the comment mentions Navigation UI.
-        //    // Tip: just check the class definations of NavigationUI and Navigation - right click on either and Go To Definition 
-        //    // Note: OnNavDestinationSelected will immediately call OnDesinationChanged.
-
-        //    // A long hand way of writing the same thing.
-        //    // if Navigation.FindNavController(etc..) succeeds ie finds a matching item.id in the nav_host_fragment then pass the item and navController to NavigationUI.OnDestinationSelected 
-        //    // else just return base.OnOptionsItemSelected.
-
-        //    //NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
-        //    //if (navController != null)
-        //    //    return NavigationUI.OnNavDestinationSelected(item, navController);
-        //    //else
-        //    //    return base.OnOptionsItemSelected(item);
-
-        //    return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
-
-        //    // TODO END STEP 9.2
-        //}
-
-        // Alternative, showing how we could display a dialog from the overflow menu without having the dialog in the nav_graph
+        // Original codelab code - see an alternative below
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            // Kotlin
-            // NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
+            //return base.OnOptionsItemSelected(item);
 
-            if (item.ItemId == Resource.Id.action_privacy_policy)
-            {
-                ShowPrivacyPolicyDialog(GetString(Resource.String.privacy_policy_title), GetString(Resource.String.privacy_policy_explanation));
-                return true;
-            }
-            else
-                return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
+            // TODO STEP 9.2 - Have Navigation UI Handle the item selection - make sure to delete or comment
+            // the original return statement above
+
+            // Have the NavigationUI look for an action or destination matching the menu
+            // item id and navigate there if found.
+            // Otherwise, bubble up to the parent.
+            // return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment)) || super.onOptionsItemSelected(item)
+
+            // This Kotlin code is probably the most complex code to translate from Kotlin to C#. The Kotlin code really doesn't give you much of a clue!!. At least the comment mentions Navigation UI.
+            // Tip: just check the class definations of NavigationUI and Navigation - right click on either and Go To Definition 
+            // Note: OnNavDestinationSelected will immediately call OnDesinationChanged.
+
+            // A long hand way of writing the same thing.
+            // if Navigation.FindNavController(etc..) succeeds ie finds a matching item.id in the nav_host_fragment then pass the item and navController to NavigationUI.OnDestinationSelected 
+            // else just return base.OnOptionsItemSelected.
+
+            //NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
+            //if (navController != null)
+            //    return NavigationUI.OnNavDestinationSelected(item, navController);
+            //else
+            //    return base.OnOptionsItemSelected(item);
+
+            return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
+
+            // TODO END STEP 9.2
         }
+
+        // Alternative, showing how we could display a dialog from the overflow menu without having the dialog in the nav_graph
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    // Kotlin
+        //    // NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
+
+        //    if (item.ItemId == Resource.Id.action_google_sign_in)
+        //    {
+        //        // InternetConnectionAvailable is just a dummy test function - returns true of false. Toggle the return value to  get either the dialog or show the fragment
+        //        if (!InternetConnectionAvailable())     
+        //            ShowInternetRequiredDialog("GoogleSignIn");
+        //        else
+        //            Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment).Navigate(Resource.Id.action_google_sign_in);
+
+        //        return true;
+        //    }
+        //    else
+        //        return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
+        //}
 
 
         public void OnDestinationChanged(NavController p0, NavDestination p1, Bundle p2)
@@ -198,7 +191,7 @@ namespace com.companyname.NavigationCodeLab
             try { destination = Resources.GetResourceName(navDestinationId); }
             catch (Android.Content.Res.Resources.NotFoundException) { destination = Convert.ToString(navDestinationId); }
 
-            //Toast.MakeText(this, "Navigated to " + destination, ToastLength.Short).Show();
+            Toast.MakeText(this, "Navigated to " + destination, ToastLength.Short).Show();
         }
 
         // TODO STEP 9.7 - Have NavigationUI handle up behavior in the ActionBar
@@ -214,81 +207,36 @@ namespace com.companyname.NavigationCodeLab
         }
         // TODO END STEP 9.7
 
-        
+
 
         #region InternetConnectionAvailable
         internal bool InternetConnectionAvailable()
         {
             bool available = false;
 
-            if (connectivityMonitor.NetworkStatus == NetworkStatus.Connected)
-            {
-                available = true;
-                ShowSnackbar("Internet Connected");
-            }
-            else if (connectivityMonitor.NetworkStatus == NetworkStatus.WifiConnected)
-            {
-                available = true;
-                ShowSnackbar("Internet Connected - Wi-Fi.");
-            }
-            else if (connectivityMonitor.NetworkStatus == NetworkStatus.CellularConnected)
-            {
-                available = true;
-                ShowSnackbar("Internet Connected - Cellular.");
-            }
-            else if (connectivityMonitor.NetworkStatus == NetworkStatus.WifiScantoolConnected)
-                ShowSnackbar("No Internet - Connected to Wi-Fi scan tool.");
-            else if (connectivityMonitor.NetworkStatus == NetworkStatus.Disconnected)
-                ShowSnackbar("Internet not available.");
-
             return available;
         }
         #endregion
 
-        #region ShowSnackbar
-        private void ShowSnackbar(string message)
+        #region ShowInternetRequiredDialog
+        internal void ShowInternetRequiredDialog(string choice)
         {
-            View snackbarView = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
-
-            if (snackbarView == null)
-                snackbarView = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-            Snackbar snackbar = Snackbar.Make(snackbarView, message, Snackbar.LengthLong);
-            snackbar.SetDuration(1250); // Make the duration shorter than a normal snackbar
-            View view = snackbar.View;
-            view.SetBackgroundResource(Resource.Color.colorPrimary);
-            TextView tv = view.FindViewById<TextView>(Resource.Id.snackbar_text);
-            if (tv != null)
-            {
-                tv.Gravity = GravityFlags.CenterHorizontal | GravityFlags.CenterVertical;
-                tv.TextAlignment = TextAlignment.Center;
-            }
-
-            if (connectivityInfo)
-            {
-                //  Only show the Connectivity snackbar when on the Connection fragment
-
-                // This works, but why so bloody complicated. 
-                // Why do we need this extra crap, if we aren't going near the ConnectionFragment which is the StartDestination fragment
-                //if (navController.Graph.StartDestination == navController.CurrentDestination.Id)
-                //{
-                //    // We don't want the snackbar shown on the ReadVehiclePidsFragment when exiting from any of the DashboardFragments. Why though is the Graph.StartDestination == navController.CurrentDestination.Id in the first place
-                //    // when exiting either of the two pager fragments.
-                //    AndroidX.Fragment.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.nav_host).ChildFragmentManager.PrimaryNavigationFragment;
-                //    if (!(currentFragment is DashboardPagerFragment) && !(currentFragment is FuelDashboardPagerFragment))
-                //        snackbar.Show();
-                //}
-
-                snackbar.Show();
-            }
+            // Has DismissDialog
+            InternetRequiredDialogFragment internetRequiredDialogFragment = InternetRequiredDialogFragment.NewInstance(GetString(Resource.String.internetConnectionRequired), choice);
+            internetRequiredDialogFragment.Show(SupportFragmentManager, "InternetRequiredDialogFragment");
         }
         #endregion
 
-        internal void ShowPrivacyPolicyDialog(string title, string explanation)
+        #region DismissInternetRequiredDialog
+        internal void DismissInternetRequiredDialog()
         {
-            // No DismissDialog
-            BasicDialogFragment privacyPolicyDialog = BasicDialogFragment.NewInstance(title, explanation);
-            privacyPolicyDialog.Show(SupportFragmentManager, "PrivacyPolicyDialogFragment");
+            InternetRequiredDialogFragment internetRequiredDialogFragment = (InternetRequiredDialogFragment)SupportFragmentManager.FindFragmentByTag("InternetRequiredDialogFragment");
+            if (internetRequiredDialogFragment != null)
+            {
+                if (internetRequiredDialogFragment.Dialog.IsShowing)
+                    internetRequiredDialogFragment.Dialog.Dismiss();
+            }
         }
+        #endregion
     }
 }

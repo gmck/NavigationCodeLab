@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -7,17 +8,19 @@ using Google.Android.Material.Dialog;
 
 namespace com.companyname.NavigationCodeLab.Dialogs
 {
-    internal class BasicDialogFragment : AppCompatDialogFragment
+    internal class InternetRequiredDialogFragment : AppCompatDialogFragment
     {
-        public BasicDialogFragment() { }
-
-        internal static BasicDialogFragment NewInstance(string title, string message)
+        
+        public InternetRequiredDialogFragment() { }
+        
+        internal static InternetRequiredDialogFragment NewInstance(string title, string choice)
         {
             Bundle arguments = new Bundle();
             arguments.PutString("Title", title);
-            arguments.PutString("Message", message);
+            arguments.PutString("MenuChoice", choice);
 
-            BasicDialogFragment fragment = new BasicDialogFragment
+
+            InternetRequiredDialogFragment fragment = new InternetRequiredDialogFragment
             {
                 RetainInstance = true,
                 Cancelable = false,
@@ -29,15 +32,26 @@ namespace com.companyname.NavigationCodeLab.Dialogs
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             LayoutInflater inflater = LayoutInflater.From(Activity);
-            View view = inflater.Inflate(Resource.Layout.generic_dialog, null);
 
-            TextView textViewExplanation = view.FindViewById<TextView>(Resource.Id.textView_explanation);
-            textViewExplanation.Text = Arguments.GetString("Message");
+            View view = inflater.Inflate(Resource.Layout.generic_dialog, null);
+            TextView textViewInternetRequired = view.FindViewById<TextView>(Resource.Id.textView_explanation);
+            int explanationText = 0;
+
+            string menuChoice = Arguments.GetString("MenuChoice");
+            if (menuChoice == "GoogleSignIn")
+                explanationText = Resource.String.internetRequiredGoogleSignIn;
+            else if (menuChoice == "Evaluation")
+                explanationText = Resource.String.internetRequiredExplanationEvaluation;
+            
+            
+
+            textViewInternetRequired.SetText(explanationText);
 
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
             builder.SetTitle(Arguments.GetString("Title"));
-            builder.SetPositiveButton(Android.Resource.String.Ok, (sender, args) => { Dismiss(); });
             builder.SetView(view);
+
+            builder.SetPositiveButton(Android.Resource.String.Ok, (sender, e) => { ((MainActivity)Activity).DismissInternetRequiredDialog(); });
             return builder.Create();
         }
 

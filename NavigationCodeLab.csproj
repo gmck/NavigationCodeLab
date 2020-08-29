@@ -65,11 +65,11 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectivityMonitor.cs" />
-    <Compile Include="Dialogs\BasicDialogFragment.cs" />
+    <Compile Include="Dialogs\InternetRequiredDialogFragment.cs" />
     <Compile Include="Fragments\DeepLinkAppWidgetProvider.cs" />
     <Compile Include="Fragments\DeepLinkFragment.cs" />
     <Compile Include="Fragments\FlowStepFragment.cs" />
+    <Compile Include="Fragments\GoogleSignInFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShoppingCartFragment.cs" />
@@ -205,6 +205,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\generic_dialog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\google_sign_in_fragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
