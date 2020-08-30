@@ -38,7 +38,7 @@ namespace com.companyname.NavigationCodeLab
     public class MainActivity : AppCompatActivity, NavController.IOnDestinationChangedListener
     {
         private AppBarConfiguration appBarConfiguration;
-        
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -71,7 +71,7 @@ namespace com.companyname.NavigationCodeLab
             navController.AddOnDestinationChangedListener(this);
         }
 
-        
+
         private void SetupBottomNavMenu(NavController navController)
         {
             // TODO STEP 9.3 - Use NavigationUI to set up Bottom Nav
@@ -159,84 +159,85 @@ namespace com.companyname.NavigationCodeLab
         // Alternative, showing how we could display a dialog from the overflow menu without having the dialog in the nav_graph
         //public override bool OnOptionsItemSelected(IMenuItem item)
         //{
-        //    // Kotlin
-        //    // NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
+        //        // Kotlin
+        //        // NavController navController = Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment);
 
-        //    if (item.ItemId == Resource.Id.action_google_sign_in)
-        //    {
-        //        // InternetConnectionAvailable is just a dummy test function - returns true of false. Toggle the return value to  get either the dialog or show the fragment
-        //        if (!InternetConnectionAvailable())     
-        //            ShowInternetRequiredDialog("GoogleSignIn");
+        //        if (item.ItemId == Resource.Id.action_google_sign_in)
+        //        {
+        //            // InternetConnectionAvailable is just a dummy test function - returns true of false. Toggle the return value to  get either the dialog or show the fragment
+        //            if (!InternetConnectionAvailable())
+        //                ShowInternetRequiredDialog("GoogleSignIn");
+        //            else
+        //                Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment).Navigate(Resource.Id.action_google_sign_in);
+
+        //            return true;
+        //        }
         //        else
-        //            Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment).Navigate(Resource.Id.action_google_sign_in);
-
-        //        return true;
-        //    }
-        //    else
-        //        return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
+        //            return NavigationUI.OnNavDestinationSelected(item, Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment)) || base.OnOptionsItemSelected(item);
         //}
 
 
         public void OnDestinationChanged(NavController p0, NavDestination p1, Bundle p2)
-        {
-            // Wish Xamarin would fix these parameter name problems p0,p1,p2
+    {
+        // Wish Xamarin would fix these parameter name problems p0,p1,p2
 
-            // Note:- 
-            // OnDestinationChanged is executed even before OnCreate of the destination fragment and the OnStart of the MainActivity. 
-            // The destination fragment's ctor has already been called before OnDestinationChanged.
+        // Note:- 
+        // OnDestinationChanged is executed even before OnCreate of the destination fragment and the OnStart of the MainActivity. 
+        // The destination fragment's ctor has already been called before OnDestinationChanged.
 
-            int navDestinationId = p1.Id;
-            string destination;
+        int navDestinationId = p1.Id;
+        string destination;
 
-            try { destination = Resources.GetResourceName(navDestinationId); }
-            catch (Android.Content.Res.Resources.NotFoundException) { destination = Convert.ToString(navDestinationId); }
+        try { destination = Resources.GetResourceName(navDestinationId); }
+        catch (Android.Content.Res.Resources.NotFoundException) { destination = Convert.ToString(navDestinationId); }
 
-            Toast.MakeText(this, "Navigated to " + destination, ToastLength.Short).Show();
-        }
-
-        // TODO STEP 9.7 - Have NavigationUI handle up behavior in the ActionBar
-        public override bool OnSupportNavigateUp()
-        {
-            // Kotlin
-            // Allows NavigationUI to support proper up navigation or the drawer layout drawer menu, depending on the situation
-            //    override fun onSupportNavigateUp(): Boolean {
-            //        return findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration)
-            //      }
-
-            return NavigationUI.NavigateUp(Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment), appBarConfiguration);
-        }
-        // TODO END STEP 9.7
-
-
-
-        #region InternetConnectionAvailable
-        internal bool InternetConnectionAvailable()
-        {
-            bool available = false;
-
-            return available;
-        }
-        #endregion
-
-        #region ShowInternetRequiredDialog
-        internal void ShowInternetRequiredDialog(string choice)
-        {
-            // Has DismissDialog
-            InternetRequiredDialogFragment internetRequiredDialogFragment = InternetRequiredDialogFragment.NewInstance(GetString(Resource.String.internetConnectionRequired), choice);
-            internetRequiredDialogFragment.Show(SupportFragmentManager, "InternetRequiredDialogFragment");
-        }
-        #endregion
-
-        #region DismissInternetRequiredDialog
-        internal void DismissInternetRequiredDialog()
-        {
-            InternetRequiredDialogFragment internetRequiredDialogFragment = (InternetRequiredDialogFragment)SupportFragmentManager.FindFragmentByTag("InternetRequiredDialogFragment");
-            if (internetRequiredDialogFragment != null)
-            {
-                if (internetRequiredDialogFragment.Dialog.IsShowing)
-                    internetRequiredDialogFragment.Dialog.Dismiss();
-            }
-        }
-        #endregion
+        Toast.MakeText(this, "Navigated to " + destination, ToastLength.Short).Show();
     }
+
+    // TODO STEP 9.7 - Have NavigationUI handle up behavior in the ActionBar
+    public override bool OnSupportNavigateUp()
+    {
+        // Kotlin
+        // Allows NavigationUI to support proper up navigation or the drawer layout drawer menu, depending on the situation
+        //    override fun onSupportNavigateUp(): Boolean {
+        //        return findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration)
+        //      }
+
+        return NavigationUI.NavigateUp(Navigation.FindNavController(this, Resource.Id.my_nav_host_fragment), appBarConfiguration);
+    }
+    // TODO END STEP 9.7
+
+
+
+    #region InternetConnectionAvailable
+    internal bool InternetConnectionAvailable()
+    {
+        // dummy function as an example of what may be need before showing a particular fragment such as the Google sign In fragment
+        bool available = false;
+
+        return available;
+    }
+    #endregion
+
+    #region ShowInternetRequiredDialog
+    internal void ShowInternetRequiredDialog(string choice)
+    {
+        // Has DismissDialog
+        InternetRequiredDialogFragment internetRequiredDialogFragment = InternetRequiredDialogFragment.NewInstance(GetString(Resource.String.internetConnectionRequired), choice);
+        internetRequiredDialogFragment.Show(SupportFragmentManager, "InternetRequiredDialogFragment");
+    }
+    #endregion
+
+    #region DismissInternetRequiredDialog
+    internal void DismissInternetRequiredDialog()
+    {
+        InternetRequiredDialogFragment internetRequiredDialogFragment = (InternetRequiredDialogFragment)SupportFragmentManager.FindFragmentByTag("InternetRequiredDialogFragment");
+        if (internetRequiredDialogFragment != null)
+        {
+            if (internetRequiredDialogFragment.Dialog.IsShowing)
+                internetRequiredDialogFragment.Dialog.Dismiss();
+        }
+    }
+    #endregion
+}
 }
